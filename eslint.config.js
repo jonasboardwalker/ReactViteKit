@@ -8,6 +8,7 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import prettier from 'eslint-plugin-prettier';
 import react from 'eslint-plugin-react';
 import eslintImport from 'eslint-plugin-import';
+import unusedImports from 'eslint-plugin-unused-imports';
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -26,6 +27,7 @@ export default tseslint.config(
       'simple-import-sort': simpleImportSort,
       prettier,
       import: eslintImport,
+      'unused-imports': unusedImports,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -44,8 +46,13 @@ export default tseslint.config(
       quotes: ['error', 'single', { avoidEscape: true }],
       semi: ['error', 'always'],
 
+      'unused-imports/no-unused-imports': 'error', // Automatically remove unused imports
+
       // TypeScript rules
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn', // Warn about unused variables but do not remove
+        { vars: 'all', args: 'after-used', argsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'warn',
       '@typescript-eslint/no-inferrable-types': 'warn',
