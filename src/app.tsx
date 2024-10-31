@@ -12,5 +12,5 @@ export const App = () => {
         Get Started
       </button>
     </div>
-  );
-};
+  )
+}
